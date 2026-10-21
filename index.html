@@ -29,46 +29,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @font-face{font-family:Inter;font-weight:400;font-display:swap;src:url(./fonts/inter-400.woff2) format("woff2")}
 @font-face{font-family:Inter;font-weight:500;font-display:swap;src:url(./fonts/inter-500.woff2) format("woff2")}
 @font-face{font-family:Inter;font-weight:600;font-display:swap;src:url(./fonts/inter-600.woff2) format("woff2")}
-:root{
-  --ink:#0a0a0a; --body:#555758; --border:#e6e7e9; --ground:#f8f8f8; --verde:#25d366;
-}
+:root{--ink:#0a0a0a;--body:#555758;--border:#e6e7e9;--ground:#f8f8f8;--verde:#25d366}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
 body{
-  font-family:Inter,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff;
-  display:flex;flex-direction:column;min-height:100svh;
+  font-family:Inter,-apple-system,"Segoe UI",sans-serif;color:var(--ink);
+  min-height:100svh;display:flex;flex-direction:column;
   background:radial-gradient(900px 480px at 50% -120px,var(--ground),#fff 70%);
 }
-main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px}
-.quadro{max-width:720px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px}
-.wordmark{width:132px;display:block}
-.wordmark img{width:100%;height:auto;display:block}
-h1{
-  font-family:Fustat,Inter,sans-serif;font-weight:600;letter-spacing:-.03em;line-height:1.08;
-  font-size:clamp(2.1rem,6.4vw,3.6rem);text-wrap:balance;
+/* — cabeçalho fixo — */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
 }
-.sub{font-size:clamp(1.05rem,2.4vw,1.25rem);line-height:1.55;letter-spacing:-.01em;color:var(--body);max-width:560px;text-wrap:balance}
+.nav-inner{max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center}
+.wordmark{width:118px;display:block}
+.wordmark img{width:100%;height:auto;display:block}
+/* — miolo — */
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:118px 24px 64px}
+.quadro{max-width:760px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px}
+h1{
+  font-family:Fustat,Inter,sans-serif;font-weight:600;letter-spacing:-.03em;line-height:1.1;
+  font-size:clamp(1.35rem,4.9vw,3.1rem);white-space:nowrap;
+}
+/* — thumb bloqueada — */
+.thumb{
+  position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.45);transform:translateZ(0);
+}
+.thumb img{width:100%;height:100%;object-fit:cover;filter:blur(12px) saturate(1.15);transform:scale(1.12)}
+.thumb::after{content:"";position:absolute;inset:0;background:rgba(10,10,10,.32)}
+.cadeado{
+  position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
+}
+.cadeado span{
+  width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:transform .2s ease;
+}
+.thumb:hover .cadeado span{transform:scale(1.06)}
+.cadeado svg{width:34px;height:34px;color:#fff}
+.sub{font-size:clamp(1.05rem,2.4vw,1.25rem);line-height:1.55;letter-spacing:-.01em;color:var(--body);max-width:580px;text-wrap:balance}
 .sub strong{color:var(--ink);font-weight:600}
 .cta{
   position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;
   background:var(--ink);color:#fff;text-decoration:none;border-radius:12px;
-  font-weight:500;font-size:17px;letter-spacing:-.01em;padding:17px 30px;margin-top:6px;
+  font-weight:500;font-size:17px;letter-spacing:-.01em;padding:17px 30px;
   transition:transform .18s ease, box-shadow .18s ease;
 }
 .cta:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(0,0,0,.45)}
 .cta svg{width:16px;height:16px;flex:none}
-.coin-band{
-  pointer-events:none;position:absolute;top:-30%;bottom:-30%;left:-85%;width:55%;opacity:0;
-  background:linear-gradient(90deg,rgba(0,0,0,0),rgba(200,212,228,.3),rgba(255,255,255,.6),rgba(200,212,228,.3),rgba(0,0,0,0));
-  transform:skew(-20deg);
-}
+.coin-band{pointer-events:none;position:absolute;top:-30%;bottom:-30%;left:-85%;width:55%;opacity:0;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(200,212,228,.3),rgba(255,255,255,.6),rgba(200,212,228,.3),rgba(0,0,0,0));transform:skew(-20deg)}
 .cta:hover .coin-band{animation:coin-sweep .65s ease-out forwards}
 @keyframes coin-sweep{to{left:130%;opacity:1}}
-.pulso{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--body)}
-.pulso i{width:8px;height:8px;border-radius:50%;background:var(--verde);animation:pulsa 1.8s ease-in-out infinite}
-@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}55%{box-shadow:0 0 0 7px rgba(37,211,102,0)}}
-footer{padding:22px;text-align:center;font-size:12.5px;color:var(--body)}
-@media (max-width:600px){ .quadro{gap:22px} .cta{width:100%;justify-content:center} }
+/* — rodapé (da LP base) — */
+footer{border-top:1px solid var(--border);background:#fff}
+.foot-inner{max-width:1200px;margin:0 auto;padding:56px 24px 28px;display:flex;flex-wrap:wrap;gap:44px}
+.foot-marca{flex:1 1 220px}
+.foot-marca .wordmark{width:122px;margin-bottom:14px}
+.foot-col{flex:0 1 150px}
+.foot-col h4{font-size:13px;font-weight:500;color:var(--body);letter-spacing:.02em;margin-bottom:14px}
+.foot-col a{display:block;font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:-.01em;margin-bottom:10px}
+.foot-col a:hover{opacity:.6}
+.foot-legal{max-width:1200px;margin:0 auto;padding:18px 24px 26px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:12.5px;color:var(--body)}
+@media (max-width:600px){
+  main{padding-top:104px}
+  .quadro{gap:20px}
+  .cta{width:100%;justify-content:center}
+  .cadeado span{width:66px;height:66px}
+  .cadeado svg{width:26px;height:26px}
+  .foot-inner{gap:30px}
+}
 </style>
 </head>
 <body>
@@ -76,19 +108,64 @@ footer{padding:22px;text-align:center;font-size:12.5px;color:var(--body)}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58PKRX7L"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<header>
+  <div class="nav-inner">
+    <span class="wordmark"><img src="./img/wordmark-squad.svg" alt="squad.com" width="1352" height="244"></span>
+  </div>
+</header>
 <main>
   <div class="quadro">
-    <span class="wordmark"><img src="./img/wordmark-squad.svg" alt="squad.com" width="1352" height="244"></span>
-    <h1>Perdendo vendas pelo&nbsp;WhatsApp?</h1>
+    <h1>Perdendo vendas pelo WhatsApp?</h1>
+    <a class="thumb" href="./demo/" aria-label="Liberar demonstração bloqueada">
+      <img src="./img/thumb-demo.jpg" alt="" width="1920" height="860">
+      <span class="cadeado"><span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </span></span>
+    </a>
     <p class="sub">Descubra <strong>em 5 minutos</strong> como colocar uma IA para responder, atender e vender pelo WhatsApp 24h por dia.</p>
     <a class="cta" href="./demo/" id="cta-demo">
       Liberar demonstração
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
       <span class="coin-band"></span>
     </a>
-    <span class="pulso"><i></i>Demonstração gratuita, sem cadastro</span>
   </div>
 </main>
-<footer>Squad.com · Grupo Inner AI</footer>
+<footer>
+  <div class="foot-inner">
+    <div class="foot-marca">
+      <span class="wordmark"><img src="./img/wordmark-squad.svg" alt="squad.com" width="1352" height="244"></span>
+    </div>
+    <div class="foot-col">
+      <h4>Agentes</h4>
+      <a href="https://squad.com/maky">Maky</a>
+      <a href="https://squad.com/waz">Waz</a>
+      <a href="https://squad.com/fin">Fin</a>
+      <a href="https://squad.com/opy">Opy</a>
+      <a href="https://squad.com/juri">Juri</a>
+      <a href="https://squad.com/pipo">Pipo</a>
+    </div>
+    <div class="foot-col">
+      <h4>Suporte</h4>
+      <a href="https://squad.com/termos/">Termos de Uso</a>
+      <a href="https://squad.com/privacidade/">Política de Privacidade</a>
+      <a href="https://wa.me/5511952134536?text=Oi%2C%20tudo%20bem%3F%20Vi%20a%20Squad%20no%20site%20e%20queria%20entender%20como%20os%20agentes%20podem%20ajudar%20o%20meu%20neg%C3%B3cio" target="_blank" rel="noopener">Contato</a>
+    </div>
+    <div class="foot-col">
+      <h4>Social</h4>
+      <a href="https://www.instagram.com/squadcom_br/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@squadcom_br" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.linkedin.com/company/innerai/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="foot-col">
+      <h4>Download</h4>
+      <a href="https://squad.com/download/">iOS &amp; Android</a>
+      <a href="https://squad.com/download/">Mac &amp; Windows</a>
+    </div>
+  </div>
+  <div class="foot-legal">
+    <span>© 2026 Squad.com · Grupo Inner AI</span>
+    <span>CNPJ: 42.888.509/0001-62</span>
+  </div>
+</footer>
 </body>
 </html>
