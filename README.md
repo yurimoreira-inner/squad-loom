@@ -1,6 +1,6 @@
 # squad-loom
 
-Cópia standalone da home institucional PT do squad.com (`/home-v2`), publicada via
+Funil squad-loom: squeeze (raiz) → demo em /demo/ → WhatsApp. Cópia da home institucional PT do squad.com (`/home-v2`), publicada via
 GitHub Pages em https://yurimoreira-inner.github.io/squad-loom/
 
 - Fonte: `innerplay/squad-website` → `public/home-v2/` (main), snapshot de 21/10/2026.
