@@ -83,17 +83,18 @@ h1{
 .coin-band{pointer-events:none;position:absolute;top:-30%;bottom:-30%;left:-85%;width:55%;opacity:0;background:linear-gradient(90deg,rgba(0,0,0,0),rgba(200,212,228,.3),rgba(255,255,255,.6),rgba(200,212,228,.3),rgba(0,0,0,0));transform:skew(-20deg)}
 .cta:hover .coin-band{animation:coin-sweep .65s ease-out forwards}
 @keyframes coin-sweep{to{left:130%;opacity:1}}
-/* — rodapé (da LP base) — */
+/* — rodapé — */
 footer{border-top:1px solid var(--border);background:#fff}
-.foot-inner{max-width:1200px;margin:0 auto;padding:56px 24px 28px;display:flex;flex-wrap:wrap;gap:64px;justify-content:center;text-align:center}
-.foot-col{flex:0 1 280px}
-.foot-col h4{font-size:13px;font-weight:500;color:var(--body);letter-spacing:.02em;margin-bottom:14px}
-.foot-col a{display:block;font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;letter-spacing:-.01em;margin-bottom:10px}
-.foot-col a:hover{opacity:.6}
-.foot-col p{font-size:14px;line-height:1.6;letter-spacing:-.01em;color:var(--ink)}
-.foot-legal a{color:var(--body);text-decoration:underline;text-underline-offset:3px}
-.foot-legal a:hover{color:var(--ink)}
-.foot-legal{max-width:1200px;margin:0 auto;padding:18px 24px 26px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;text-align:center;font-size:12.5px;color:var(--body)}
+.foot-inner{max-width:1200px;margin:0 auto;padding:52px 24px 40px;text-align:left}
+.foot-logo{width:108px;margin-bottom:16px}
+.foot-tag{font-size:15px;color:var(--body);letter-spacing:-.01em;margin-bottom:34px}
+.foot-ends{display:flex;flex-wrap:wrap;gap:28px 72px}
+.foot-end h4{font-family:Fustat,Inter,sans-serif;font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
+.foot-end p{font-size:14.5px;line-height:1.55;letter-spacing:-.01em;color:var(--body);max-width:340px}
+.foot-band{background:var(--ink);color:rgba(255,255,255,.78)}
+.foot-band-inner{max-width:1200px;margin:0 auto;padding:30px 24px 34px;display:flex;flex-direction:column;gap:10px;font-size:14px;letter-spacing:-.01em}
+.foot-links a{color:#fff;text-decoration:none}
+.foot-links a:hover{opacity:.7}
 @media (max-width:600px){
   main{padding-top:104px}
   .sub{font-size:3.1vw}
@@ -102,7 +103,6 @@ footer{border-top:1px solid var(--border);background:#fff}
   .cta{width:100%;justify-content:center}
   .cadeado span{width:66px;height:66px}
   .cadeado svg{width:26px;height:26px}
-  .foot-inner{gap:30px}
 }
 </style>
 </head>
@@ -135,19 +135,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </main>
 <footer>
   <div class="foot-inner">
-    <div class="foot-col">
-      <h4>São Paulo</h4>
-      <p>Alameda Franca, 1423, São Paulo, SP,<br>01422-005, Brasil</p>
-    </div>
-    <div class="foot-col">
-      <h4>São Francisco</h4>
-      <p>Mission St, 1680, São Francisco, CA,<br>94103, Estados Unidos</p>
+    <span class="wordmark foot-logo"><img src="./img/wordmark-squad.svg" alt="squad.com" width="1352" height="244"></span>
+    <p class="foot-tag">Seu time de agentes de IA.</p>
+    <div class="foot-ends">
+      <div class="foot-end">
+        <h4>São Paulo</h4>
+        <p>Alameda Franca, 1423, São Paulo, SP, 01422-005, Brasil</p>
+      </div>
+      <div class="foot-end">
+        <h4>São Francisco</h4>
+        <p>Mission St, 1680, São Francisco, CA, 94103, Estados Unidos</p>
+      </div>
     </div>
   </div>
-  <div class="foot-legal">
-    <span>© 2026 Squad</span>
-    <span>CNPJ: 42.888.509/0001-62</span>
-    <a href="https://squad.com/termos/">Termos de Uso</a>
+  <div class="foot-band">
+    <div class="foot-band-inner">
+      <p class="foot-links"><a href="https://squad.com/termos/">Termos de Uso</a> · <a href="https://squad.com/privacidade/">Privacidade</a></p>
+      <p>CNPJ: 42.888.509/0001-62</p>
+      <p>© 2026 Squad</p>
+    </div>
   </div>
 </footer>
 </body>
