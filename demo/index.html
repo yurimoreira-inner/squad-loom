@@ -80,7 +80,7 @@ h2{font-family:Fustat,Inter,sans-serif;font-weight:600;letter-spacing:-.02em;fon
 
 /* — conteúdo liberado após 3 min de página — */
 .espera{display:none}
-body.liberado .espera{display:revert;animation:surge .6s ease}
+body.liberado .espera{display:revert}
 body.liberado a.cta.espera{display:inline-flex}
 body.liberado section.sec.espera{display:flex}
 @keyframes surge{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -105,7 +105,7 @@ footer{border-top:1px solid var(--border);background:#fff;margin-top:64px}
 }
 </style>
 </head>
-<body>
+<body class="liberado">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58PKRX7L"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -196,11 +196,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </main>
 <script>
-/* VSL: libera CTA e blocos de baixo após 3 minutos na página */
-setTimeout(function(){
+/* VSL: gate de 3 min DESATIVADO (edição). Para reativar: remova a classe
+   "liberado" do <body> e descomente o bloco abaixo. */
+/* setTimeout(function(){
   document.body.classList.add("liberado");
   if(window.dataLayer)dataLayer.push({event:"demo_conteudo_liberado"});
-}, 180000);
+}, 180000); */
 </script>
 <footer>
   <div class="foot-band-inner">
