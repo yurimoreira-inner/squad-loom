@@ -75,6 +75,12 @@ h2{font-family:Fustat,Inter,sans-serif;font-weight:600;letter-spacing:-.02em;fon
 /* — quem somos — */
 .foto-time{width:100%;max-width:640px;height:auto;aspect-ratio:633/455;object-fit:cover;border-radius:16px;margin-top:26px;display:block;box-shadow:0 18px 44px -24px rgba(0,0,0,.3)}
 
+/* — conteúdo liberado após 3 min de página — */
+.espera{display:none}
+body.liberado .espera{display:revert;animation:surge .6s ease}
+body.liberado a.cta.espera{display:inline-flex}
+body.liberado section.sec.espera{display:flex}
+@keyframes surge{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 footer{border-top:1px solid var(--border);background:#fff;margin-top:64px}
 .foot-band-inner{max-width:1200px;margin:0 auto;padding:30px 24px 34px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;font-size:14px;letter-spacing:-.01em;color:var(--body)}
 .foot-links a{color:var(--ink);text-decoration:none}
@@ -113,16 +119,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="palco">
       <video src="./media/vsl-demo.mp4" poster="./media/vsl-poster.jpg" controls playsinline preload="metadata"></video>
     </div>
-    <a class="cta" href="https://wa.me/5511952134536" target="_blank" rel="noopener" id="cta-desconto">
+    <a class="cta espera" href="https://wa.me/5511952134536" target="_blank" rel="noopener" id="cta-desconto">
       <b>Garantir agora com desconto</b>
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
       <span class="coin-band"></span>
     </a>
   </section>
 
-  <hr class="divisor">
+  <hr class="divisor espera">
 
-  <section class="sec">
+  <section class="sec espera">
     <h2>Veja o que dizem nossos clientes:</h2>
     <div class="depos">
       <figure class="depo">
@@ -164,9 +170,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <hr class="divisor">
+  <hr class="divisor espera">
 
-  <section class="sec">
+  <section class="sec espera">
     <h2>Ficou com alguma dúvida?</h2>
     <p class="texto">Toque no botão abaixo e fale diretamente com nosso time de especialistas pelo WhatsApp.</p>
     <a class="cta-zap" href="https://wa.me/5511952134536" target="_blank" rel="noopener">
@@ -176,15 +182,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
   </section>
 
-  <hr class="divisor">
+  <hr class="divisor espera">
 
-  <section class="sec">
+  <section class="sec espera">
     <h2>Quem somos nós?</h2>
     <img class="foto-time" src="../img/time-inner-numeros.avif" alt="Time do Grupo Inner AI: +1M de usuários atendidos, R$50M captados, plataforma #1 de IA do Brasil" width="633" height="455" loading="lazy">
     <p class="texto">O Squad é do Grupo Inner AI, uma das maiores empresas de inteligência artificial do Brasil. O Waz, nosso agente de vendas, conduz o funil comercial da nossa própria operação de ponta a ponta. Antes de vender, a gente valida.</p>
   </section>
 
 </main>
+<script>
+/* VSL: libera CTA e blocos de baixo após 3 minutos na página */
+setTimeout(function(){
+  document.body.classList.add("liberado");
+  if(window.dataLayer)dataLayer.push({event:"demo_conteudo_liberado"});
+}, 180000);
+</script>
 <footer>
   <div class="foot-band-inner">
     <p class="foot-links"><a href="https://squad.com/termos/">Termos de Uso</a> · <a href="https://squad.com/privacidade/">Privacidade</a></p>
