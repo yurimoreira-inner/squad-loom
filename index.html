@@ -84,6 +84,25 @@ h1{
 .cta:hover .coin-band{animation:coin-sweep .65s ease-out forwards}
 @keyframes coin-sweep{to{left:130%;opacity:1}}
 /* — rodapé — */
+/* — pop-up de liberação — */
+.veu{position:fixed;inset:0;z-index:90;background:rgba(10,10,10,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.veu.aberto{display:flex}
+.modal{background:#fff;border-radius:18px;width:100%;max-width:440px;padding:34px 30px 30px;position:relative;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);text-align:left}
+.modal h2{font-family:Fustat,Inter,sans-serif;font-weight:600;font-size:24px;letter-spacing:-.02em;line-height:1.2;margin-bottom:22px;padding-right:28px}
+.fechar{position:absolute;top:16px;right:16px;width:34px;height:34px;border:0;border-radius:50%;background:var(--ground);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.fechar:hover{background:var(--border)}
+.campo{margin-bottom:16px}
+.campo label{display:block;font-size:13.5px;font-weight:500;letter-spacing:-.01em;margin-bottom:7px;color:var(--ink)}
+.campo input{width:100%;font:inherit;font-size:15.5px;letter-spacing:-.01em;padding:13px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:border-color .15s}
+.campo input:focus{border-color:var(--ink)}
+.campo input::placeholder{color:#9b9d9f}
+.pilulas{display:flex;gap:10px}
+.pilulas label{flex:1;margin:0;cursor:pointer}
+.pilulas input{position:absolute;opacity:0;pointer-events:none}
+.pilulas span{display:flex;align-items:center;justify-content:center;padding:12px;border:1px solid var(--border);border-radius:12px;font-size:15px;font-weight:500;letter-spacing:-.01em;transition:all .15s}
+.pilulas input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
+.modal .cta{width:100%;justify-content:center;margin-top:8px}
+@media (max-width:480px){.modal{padding:28px 20px 22px}.modal h2{font-size:21px}}
 footer{border-top:1px solid var(--border);background:#fff}
 .foot-band{background:#fff;color:var(--body)}
 .foot-band-inner{max-width:1200px;margin:0 auto;padding:30px 24px 34px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;font-size:14px;letter-spacing:-.01em}
@@ -135,5 +154,65 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </footer>
+<div class="veu" id="veu" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+  <div class="modal">
+    <button class="fechar" type="button" id="fechar" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <h2 id="modal-titulo">Preencha seus dados para liberar seu acesso.</h2>
+    <form id="form-lead" novalidate>
+      <div class="campo">
+        <label for="f-nome">Nome e sobrenome</label>
+        <input id="f-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" required>
+      </div>
+      <div class="campo">
+        <label for="f-zap">WhatsApp</label>
+        <input id="f-zap" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" required>
+      </div>
+      <div class="campo">
+        <label>Já investe em tráfego?</label>
+        <div class="pilulas">
+          <label><input type="radio" name="trafego" value="sim" required><span>Sim</span></label>
+          <label><input type="radio" name="trafego" value="nao"><span>Não</span></label>
+        </div>
+      </div>
+      <button class="cta" type="submit">Liberar acesso<span class="coin-band"></span></button>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  var veu=document.getElementById("veu");
+  var form=document.getElementById("form-lead");
+  function abrir(e){e.preventDefault();veu.classList.add("aberto");document.getElementById("f-nome").focus();}
+  function fechar(){veu.classList.remove("aberto");}
+  document.getElementById("cta-demo").addEventListener("click",abrir);
+  document.querySelector(".thumb").addEventListener("click",abrir);
+  document.getElementById("fechar").addEventListener("click",fechar);
+  veu.addEventListener("click",function(e){if(e.target===veu)fechar();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")fechar();});
+  var zap=document.getElementById("f-zap");
+  zap.addEventListener("input",function(){
+    var d=zap.value.replace(/\D/g,"").slice(0,11);
+    if(d.length>6)zap.value="("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7);
+    else if(d.length>2)zap.value="("+d.slice(0,2)+") "+d.slice(2);
+    else zap.value=d;
+  });
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(!form.reportValidity())return;
+    var digitos=zap.value.replace(/\D/g,"");
+    if(digitos.length<10){zap.setCustomValidity("Informe um WhatsApp válido com DDD");zap.reportValidity();zap.setCustomValidity("");return;}
+    var dados={
+      nome:document.getElementById("f-nome").value.trim(),
+      whatsapp:digitos,
+      ja_investe_trafego:(form.querySelector("input[name=trafego]:checked")||{}).value
+    };
+    /* TODO back-end: enviar `dados` para o endpoint de leads antes do redirect */
+    if(window.dataLayer)dataLayer.push({event:"lead_demo_submit",ja_investe_trafego:dados.ja_investe_trafego});
+    window.location.href="./demo/";
+  });
+})();
+</script>
 </body>
 </html>
